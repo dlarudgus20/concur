@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading;
 
-namespace p1
+namespace p01
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
@@ -17,40 +17,27 @@ namespace p1
         static void Windmill_1(int x, int y, int count)
         {
             string str = "\\|/-";
-            int state = 0;
             for (int n = 0; n < count; ++n)
             {
                 Console.SetCursorPosition(x, y);
-                Console.Write(str[state]);
-                state = (state + 1) % str.Length;
+                Console.Write(str[n % str.Length]);
                 Thread.Sleep(500);
             }
-            Console.SetCursorPosition(x, y);
-            Console.Write(' ');
         }
 
         static void Windmill_2(int x1, int y1, int c1, int x2, int y2, int c2)
         {
             string str = "\\|/-";
-            int state1 = 0;
             int n1 = 0;
-            int state2 = 0;
             int n2 = 0;
-            for (int tick = 0; ; ++tick)
+            for (int tick = 0; n1 < c1 || n2 < c2; ++tick)
             {
                 if (tick % 3 == 0)
                 {
                     if (n1 < c1)
                     {
                         Console.SetCursorPosition(x1, y1);
-                        Console.Write(str[state1]);
-                        state1 = (state1 + 1) % str.Length;
-                        n1++;
-                    }
-                    else if (n1 == c1)
-                    {
-                        Console.SetCursorPosition(x1, y1);
-                        Console.Write(' ');
+                        Console.Write(str[n1 % str.Length]);
                         n1++;
                     }
                 }
@@ -59,19 +46,10 @@ namespace p1
                     if (n2 < c2)
                     {
                         Console.SetCursorPosition(x2, y2);
-                        Console.Write(str[state2]);
-                        state2 = (state2 + 1) % str.Length;
-                        n2++;
-                    }
-                    else if (n2 == c2)
-                    {
-                        Console.SetCursorPosition(x2, y2);
-                        Console.Write(' ');
+                        Console.Write(str[n2 % str.Length]);
                         n2++;
                     }
                 }
-                if (n1 > c1 && n2 > c2)
-                    break;
                 Thread.Sleep(100);
             }
         }
